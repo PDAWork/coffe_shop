@@ -1,0 +1,4 @@
+enum AppEnv {
+  test,
+  dev,
+}
