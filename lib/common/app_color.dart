@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 const Color primary = Color(0xFFB98875);
+const Color hover = Color(0x30B98875);
+const Color filedTextField = Color(0x50E4E3E1);
 const Color textColor = Color(0xFFFFFFFF);
 const Color textColor2 = Color(0xFF000000);
 const Color textColor3 = Color(0xFF909090);
