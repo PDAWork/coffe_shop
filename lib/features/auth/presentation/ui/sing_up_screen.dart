@@ -32,7 +32,7 @@ class SingUpScreen extends StatelessWidget {
                         color: primary,
                       ),
                       filled: true,
-                      fillColor: filedTextField,
+                      fillColor: filedFieldColor,
                       contentPadding: const EdgeInsets.all(0),
                       constraints: const BoxConstraints(maxHeight: 46),
                       border: OutlineInputBorder(
@@ -62,7 +62,7 @@ class SingUpScreen extends StatelessWidget {
                         color: primary,
                       ),
                       filled: true,
-                      fillColor: filedTextField,
+                      fillColor: filedFieldColor,
                       contentPadding: const EdgeInsets.all(0),
                       constraints: const BoxConstraints(maxHeight: 46),
                       border: OutlineInputBorder(

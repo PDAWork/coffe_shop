@@ -1,6 +1,7 @@
 import 'package:coffee_shop/features/auth/presentation/ui/sing_in_screen.dart';
 import 'package:coffee_shop/features/auth/presentation/ui/sing_up_screen.dart';
 import 'package:coffee_shop/features/auth/presentation/ui/welcome_screen.dart';
+import 'package:coffee_shop/features/home/presentation/ui/home_screen.dart';
 import 'package:coffee_shop/router/router_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -37,6 +38,13 @@ final class AppRouter {
           ),
         ],
       ),
+      GoRoute(
+        path: Pages.homeScreen.screenPath,
+        name: Pages.homeScreen.screenName,
+        builder: (context, state) {
+          return const HomeScreen();
+        },
+      )
     ],
   );
 }

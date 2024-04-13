@@ -1,5 +1,7 @@
 import 'package:coffee_shop/common/app_color.dart';
 import 'package:coffee_shop/common/images.dart';
+import 'package:coffee_shop/router/app_router.dart';
+import 'package:coffee_shop/router/router_utils.dart';
 import 'package:flutter/material.dart';
 
 class SingInScreen extends StatelessWidget {
@@ -32,7 +34,7 @@ class SingInScreen extends StatelessWidget {
                         color: primary,
                       ),
                       filled: true,
-                      fillColor: filedTextField,
+                      fillColor: filedFieldColor,
                       contentPadding: const EdgeInsets.all(0),
                       constraints: const BoxConstraints(maxHeight: 46),
                       border: OutlineInputBorder(
@@ -62,7 +64,7 @@ class SingInScreen extends StatelessWidget {
                         color: primary,
                       ),
                       filled: true,
-                      fillColor: filedTextField,
+                      fillColor: filedFieldColor,
                       contentPadding: const EdgeInsets.all(0),
                       constraints: const BoxConstraints(maxHeight: 46),
                       border: OutlineInputBorder(
@@ -89,7 +91,9 @@ class SingInScreen extends StatelessWidget {
                       Expanded(
                         child: SizedBox(
                           child: ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              AppRouter.router.go(Pages.homeScreen.screenPath);
+                            },
                             child: const Text("Войти"),
                           ),
                         ),
