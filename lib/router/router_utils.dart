@@ -8,10 +8,10 @@ enum Pages {
 extension AppPageExtension on Pages {
   String get screenPath {
     return switch (this) {
-      Pages.welcomeScreen => "/",
+      Pages.welcomeScreen => "/welcome",
       Pages.singInScreen => "singIn",
       Pages.signUpScreen => "signUp",
-      Pages.homeScreen => "/home",
+      Pages.homeScreen => "/",
     };
   }
 

@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 
 final themeDataLigth = ThemeData(
   primaryColor: primary,
-  
+  appBarTheme: const AppBarTheme(
+    backgroundColor: primary,
+    foregroundColor: textColor,
+  ),
   outlinedButtonTheme: OutlinedButtonThemeData(
     style: ButtonStyle(
       side: const MaterialStatePropertyAll(
