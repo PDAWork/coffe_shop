@@ -3,6 +3,7 @@ enum Pages {
   singInScreen,
   signUpScreen,
   homeScreen,
+  itemCoffee,
 }
 
 extension AppPageExtension on Pages {
@@ -12,6 +13,7 @@ extension AppPageExtension on Pages {
       Pages.singInScreen => "singIn",
       Pages.signUpScreen => "signUp",
       Pages.homeScreen => "/",
+      Pages.itemCoffee => "itemCoffee",
     };
   }
 
@@ -21,6 +23,7 @@ extension AppPageExtension on Pages {
       Pages.singInScreen => "SINGIN",
       Pages.signUpScreen => "SINGUP",
       Pages.homeScreen => "HOME",
+      Pages.itemCoffee => "ITEMCOFFEE",
     };
   }
 }

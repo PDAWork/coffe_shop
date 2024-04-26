@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 final themeDataLigth = ThemeData(
   primaryColor: primary,
+  scaffoldBackgroundColor: backgroundColor,
   appBarTheme: const AppBarTheme(
     backgroundColor: primary,
     foregroundColor: textColor,

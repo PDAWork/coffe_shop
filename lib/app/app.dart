@@ -11,12 +11,12 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppDependsProvider(child: const _App(), depends: depends);
+    return AppDependsProvider(depends: depends, child: const _App());
   }
 }
 
 class _App extends StatelessWidget {
-  const _App({super.key});
+  const _App();
 
   @override
   Widget build(BuildContext context) {

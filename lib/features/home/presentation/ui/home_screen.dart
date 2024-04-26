@@ -15,7 +15,6 @@ class HomeScreen extends StatelessWidget {
         context.watch<AppBottomNavigationBarCubit>().state.homePages;
 
     return Scaffold(
-      backgroundColor: backgroundColor,
       appBar: (selectTab.index == 2 || selectTab.index == 3)
           ? AppBar(
               title: Text(

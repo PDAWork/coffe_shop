@@ -1,5 +1,3 @@
-import 'package:coffee_shop/app/app_env.dart';
-import 'package:coffee_shop/core/state_managment/cubit/app_bottom_navigation_bar_cubit.dart';
 
 typedef OnError = void Function(
   String name,
@@ -12,35 +10,40 @@ typedef OnProgress = void Function(
   String progress,
 );
 
-enum _AppDeps {
-  appBottomNavigationBarCubit,
-}
+typedef AddDependsAsync<T> = Future<T> Function();
+typedef AddDepends<T> = T Function();
+
+enum _AppDeps {test}
 
 final class AppDepends {
-  final AppEnv _env;
-
-  late final AppBottomNavigationBarCubit appBottomNavigationBarCubit;
-
-  AppDepends(this._env);
+  AppDepends();
 
   Future<void> init({
     required OnError onError,
     required OnProgress onProgress,
+  }) async {}
+
+  Future<T> _addDep<T>(
+    OnProgress onProgress,
+    OnError onError,
+    _AppDeps _appDeps, {
+    bool isAsync = false,
+    AddDepends? addDepends,
+    AddDependsAsync? addDependsAsync,
   }) async {
     try {
-      appBottomNavigationBarCubit = AppBottomNavigationBarCubit();
+      final value = isAsync ? await addDependsAsync!() : addDepends!();
       onProgress(
-        "appBottomNavigationBarCubit",
-        _calc(
-          _AppDeps.appBottomNavigationBarCubit.index,
-          _AppDeps.values.length,
-        ),
+        _appDeps.name,
+        _calc(_appDeps.index),
       );
+      return value;
     } on Object catch (error, stackTrace) {
-      onError("appBottomNavigationBarCubit", error, stackTrace);
+      onError(_appDeps.name, error, stackTrace);
+      return throw "${_appDeps.name}, $error, $stackTrace";
     }
   }
 
-  String _calc(int current, int max) =>
-      '${((current + 1 / max) * 100).toStringAsFixed(0)}%';
+  String _calc(int current) =>
+      '${((current + 1) / _AppDeps.values.length * 100).toStringAsFixed(0)}%';
 }

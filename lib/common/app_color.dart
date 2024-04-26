@@ -16,3 +16,6 @@ const Color editButtonBackground = Color(0xFFFFF8DF);
 const Color deleteButtonBackground = Color(0xFFFFE5E5);
 const Color deleteIconColor = Color(0xFFFF3030);
 const Color editIconColor = Color(0xFFFFC700);
+
+const Color sizeUnSelectColor = Color(0xFFA5A5A5);
+const Color sizeSelectColor = Color(0xFF000000);
