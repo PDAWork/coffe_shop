@@ -1,3 +1,5 @@
+import 'package:coffee_shop/common/coffee.dart';
+import 'package:coffee_shop/core/state_managment/bloc/basket_coffee_bloc.dart';
 import 'package:coffee_shop/core/state_managment/cubit/app_bottom_navigation_bar_cubit.dart';
 import 'package:coffee_shop/core/talker.dart';
 import 'package:coffee_shop/features/auth/presentation/ui/sing_in_screen.dart';
@@ -49,8 +51,15 @@ final class AppRouter {
         path: Pages.homeScreen.screenPath,
         name: Pages.homeScreen.screenName,
         builder: (context, state) {
-          return BlocProvider(
-            create: (context) => AppBottomNavigationBarCubit(),
+          return MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (context) => AppBottomNavigationBarCubit(),
+              ),
+              BlocProvider(
+                create: (context) => BasketCoffeeBloc(),
+              ),
+            ],
             child: const HomeScreen(),
           );
         },
@@ -61,11 +70,20 @@ final class AppRouter {
             builder: (context, state) {
               // TODO передавать price
               int price = 100;
-              final String nameCoffee = "Latte";
-              return BlocProvider(
-                create: (context) => ItemCoffeeBloc(price),
+              final extra = state.extra as Map<String, dynamic>;
+              final itemCoffeeBloc = extra['bloc'] as BasketCoffeeBloc;
+              final coffee = extra['coffee'] as Coffee;
+              return MultiBlocProvider(
+                providers: [
+                  BlocProvider(
+                    create: (context) => ItemCoffeeBloc(coffee.price),
+                  ),
+                  BlocProvider.value(
+                    value: itemCoffeeBloc,
+                  ),
+                ],
                 child: ItemCoffeeScreen(
-                  nameCoffee: nameCoffee,
+                  coffee,
                 ),
               );
             },

@@ -17,16 +17,14 @@ final profile = SvgPicture.asset('images/profile.svg');
 final order = SvgPicture.asset('images/order.svg');
 final edit = SvgPicture.asset('images/edit.svg');
 
+abstract class AppImagePath {
+  static const String small = 'images/small.svg';
+  static const String medium = 'images/medium.svg';
+  static const String large = 'images/large.svg';
+}
+
 Widget small({Color color = Colors.white}) => SvgPicture.asset(
       'images/small.svg',
-      colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
-    );
-Widget medium({Color color = Colors.white}) => SvgPicture.asset(
-      'images/medium.svg',
-      colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
-    );
-Widget large({Color color = Colors.white}) => SvgPicture.asset(
-      'images/large.svg',
       colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
     );
 

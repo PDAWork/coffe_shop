@@ -1,5 +1,8 @@
 import 'package:coffee_shop/common/app_color.dart';
+import 'package:coffee_shop/common/coffee.dart';
 import 'package:coffee_shop/common/images.dart';
+import 'package:coffee_shop/core/entity/item_coffee_entity.dart';
+import 'package:coffee_shop/core/state_managment/bloc/basket_coffee_bloc.dart';
 import 'package:coffee_shop/features/item_coffee/state/bloc/item_coffee_bloc.dart';
 import 'package:coffee_shop/features/item_coffee/widget/counter_coffee_widget.dart';
 import 'package:coffee_shop/features/item_coffee/widget/size_coffee_widget.dart';
@@ -8,8 +11,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ItemCoffeeScreen extends StatelessWidget {
-  const ItemCoffeeScreen({super.key, required this.nameCoffee});
-  final String nameCoffee;
+  const ItemCoffeeScreen(
+    this._coffee, {
+    super.key,
+  });
+  final Coffee _coffee;
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +23,7 @@ class ItemCoffeeScreen extends StatelessWidget {
       backgroundColor: Colors.white,
       appBar: AppBar(
         // TODO Нужно передавать название кофе
-        title: Text(nameCoffee),
+        title: Text(_coffee.name),
       ),
       body: Stack(
         children: [
@@ -57,7 +63,7 @@ class ItemCoffeeScreen extends StatelessWidget {
                           ),
                           const Spacer(),
                           Text(
-                            '100 ₽',
+                            "${context.read<ItemCoffeeBloc>().state.price} ₽",
                             style: Theme.of(context)
                                 .textTheme
                                 .headlineSmall!
@@ -108,7 +114,19 @@ class ItemCoffeeScreen extends StatelessWidget {
                       ),
                       const SizedBox(height: 10),
                       ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          final item = ItemCoffeeEntity(
+                            coffee: _coffee,
+                            count: context.read<ItemCoffeeBloc>().state.count,
+                            totalPrice:
+                                context.read<ItemCoffeeBloc>().state.totalPrice,
+                            size: context.read<ItemCoffeeBloc>().state.size,
+                            sugar: context.read<ItemCoffeeBloc>().state.sugar,
+                          );
+                          context
+                              .read<BasketCoffeeBloc>()
+                              .add(BasketCoffeeAddEvent(item: item));
+                        },
                         child: const Text('AddToCart'),
                       )
                     ],

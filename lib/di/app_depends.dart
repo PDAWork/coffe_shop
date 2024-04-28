@@ -18,6 +18,7 @@ enum _AppDeps {test}
 final class AppDepends {
   AppDepends();
 
+
   Future<void> init({
     required OnError onError,
     required OnProgress onProgress,

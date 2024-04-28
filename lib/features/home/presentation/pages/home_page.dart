@@ -1,6 +1,9 @@
 import 'package:coffee_shop/common/app_color.dart';
+import 'package:coffee_shop/common/coffee.dart';
+import 'package:coffee_shop/core/state_managment/bloc/basket_coffee_bloc.dart';
 import 'package:coffee_shop/features/home/presentation/widget/coffee_item_card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({
@@ -45,21 +48,27 @@ class HomePage extends StatelessWidget {
             )
           ],
         ),
-        const SizedBox(height: 25),
         Expanded(
           child: GridView.builder(
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              mainAxisSpacing: 26,
-              crossAxisSpacing: 26,
-            ),
-            itemCount: 20,
+                crossAxisCount: 2,
+                childAspectRatio: 0.8 // Number of columns in the grid
+                ),
+            itemCount: Coffee.values.length,
             itemBuilder: (context, index) {
-              return const CoffeeItemCard();
+              return Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: CoffeeItemCard(Coffee.values[index]));
             },
           ),
         ),
-        const SizedBox(height: 10)
+        BlocBuilder<BasketCoffeeBloc, BasketCoffeeState>(
+          builder: (context, state) {
+            return SizedBox(
+                height: kBottomNavigationBarHeight +
+                    (state.bascketItem.isNotEmpty ? 50 : 0));
+          },
+        ),
       ],
     );
   }

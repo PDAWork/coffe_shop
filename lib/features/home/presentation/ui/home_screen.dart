@@ -1,6 +1,7 @@
 import 'package:coffee_shop/common/app_color.dart';
 import 'package:coffee_shop/core/state_managment/cubit/app_bottom_navigation_bar_cubit.dart';
 import 'package:coffee_shop/core/widget/app_bottom_navigation_bar.dart';
+import 'package:coffee_shop/features/home/presentation/pages/basket_page.dart';
 import 'package:coffee_shop/features/home/presentation/pages/home_page.dart';
 import 'package:coffee_shop/features/home/presentation/pages/profile_page.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +38,7 @@ class HomeScreen extends StatelessWidget {
                 children: [
                   const HomePage(),
                   Container(),
-                  Container(),
+                  BasketPage(),
                   const ProfilePage(),
                 ],
               ),

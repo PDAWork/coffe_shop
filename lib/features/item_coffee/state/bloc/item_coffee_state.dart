@@ -2,8 +2,8 @@ part of 'item_coffee_bloc.dart';
 
 enum SizeCoffee {
   small(title: "S", procent: 0),
-  medium(title: "M", procent: 50),
-  large(title: "L", procent: 150);
+  medium(title: "M", procent: 20),
+  large(title: "L", procent: 30);
 
   const SizeCoffee({required this.title, required this.procent});
   final String title;
