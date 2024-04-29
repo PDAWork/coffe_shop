@@ -22,7 +22,6 @@ class ItemCoffeeScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        // TODO Нужно передавать название кофе
         title: Text(_coffee.name),
       ),
       body: Stack(

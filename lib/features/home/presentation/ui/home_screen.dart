@@ -47,7 +47,7 @@ class HomeScreen extends StatelessWidget {
                       children: [
                         const HomePage(),
                         Container(),
-                        BasketPage(),
+                        const BasketPage(),
                         const ProfilePage(),
                       ],
                     ),

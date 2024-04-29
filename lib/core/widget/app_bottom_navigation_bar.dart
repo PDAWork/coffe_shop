@@ -50,7 +50,7 @@ class AppBottomNavigationBar extends StatelessWidget {
                               ),
                             ],
                           ),
-                          Spacer(),
+                          const Spacer(),
                           ElevatedButton(
                             onPressed: () {},
                             child: const Text('Оплатить'),

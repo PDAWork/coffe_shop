@@ -68,8 +68,6 @@ final class AppRouter {
             path: Pages.itemCoffee.screenPath,
             name: Pages.itemCoffee.screenName,
             builder: (context, state) {
-              // TODO передавать price
-              int price = 100;
               final extra = state.extra as Map<String, dynamic>;
               final itemCoffeeBloc = extra['bloc'] as BasketCoffeeBloc;
               final coffee = extra['coffee'] as Coffee;

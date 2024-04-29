@@ -4,12 +4,12 @@ import 'package:equatable/equatable.dart';
 
 final class ItemCoffeeEntity extends Equatable {
   final Coffee coffee;
-  int count;
-  int totalPrice;
+  final int count;
+  final int totalPrice;
   final SizeCoffee size;
   final SugarCoffee sugar;
 
-  ItemCoffeeEntity({
+  const ItemCoffeeEntity({
     required this.coffee,
     required this.count,
     required this.totalPrice,
@@ -18,6 +18,5 @@ final class ItemCoffeeEntity extends Equatable {
   });
 
   @override
-  // TODO: implement props
   List<Object?> get props => [coffee, size, sugar];
 }

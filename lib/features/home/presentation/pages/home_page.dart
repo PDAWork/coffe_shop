@@ -1,9 +1,7 @@
 import 'package:coffee_shop/common/app_color.dart';
 import 'package:coffee_shop/common/coffee.dart';
-import 'package:coffee_shop/core/state_managment/bloc/basket_coffee_bloc.dart';
 import 'package:coffee_shop/features/home/presentation/widget/coffee_item_card.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({

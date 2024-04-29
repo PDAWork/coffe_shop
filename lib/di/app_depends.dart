@@ -1,4 +1,3 @@
-
 typedef OnError = void Function(
   String name,
   Object error,
@@ -13,11 +12,10 @@ typedef OnProgress = void Function(
 typedef AddDependsAsync<T> = Future<T> Function();
 typedef AddDepends<T> = T Function();
 
-enum _AppDeps {test}
+enum _AppDeps { test }
 
 final class AppDepends {
   AppDepends();
-
 
   Future<void> init({
     required OnError onError,
@@ -27,7 +25,7 @@ final class AppDepends {
   Future<T> _addDep<T>(
     OnProgress onProgress,
     OnError onError,
-    _AppDeps _appDeps, {
+    _AppDeps appDeps, {
     bool isAsync = false,
     AddDepends? addDepends,
     AddDependsAsync? addDependsAsync,
@@ -35,13 +33,13 @@ final class AppDepends {
     try {
       final value = isAsync ? await addDependsAsync!() : addDepends!();
       onProgress(
-        _appDeps.name,
-        _calc(_appDeps.index),
+        appDeps.name,
+        _calc(appDeps.index),
       );
       return value;
     } on Object catch (error, stackTrace) {
-      onError(_appDeps.name, error, stackTrace);
-      return throw "${_appDeps.name}, $error, $stackTrace";
+      onError(appDeps.name, error, stackTrace);
+      return throw "${appDeps.name}, $error, $stackTrace";
     }
   }
 

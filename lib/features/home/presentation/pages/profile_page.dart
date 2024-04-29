@@ -1,7 +1,6 @@
 import 'package:coffee_shop/common/app_color.dart';
 import 'package:coffee_shop/common/images.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -43,7 +42,6 @@ class ProfilePage extends StatelessWidget {
 
 class _SettingsCard extends StatelessWidget {
   const _SettingsCard({
-    super.key,
     this.leanding,
     this.trailing,
     required this.title,
@@ -80,7 +78,7 @@ class _SettingsCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 subtitle == null
-                    ? SizedBox()
+                    ? const SizedBox()
                     : Text(
                         subtitle!,
                         style: Theme.of(context).textTheme.labelSmall,
@@ -106,9 +104,7 @@ class _SettingsCard extends StatelessWidget {
 }
 
 class _LayaltyCard extends StatelessWidget {
-  const _LayaltyCard({
-    super.key,
-  });
+  const _LayaltyCard();
 
   @override
   Widget build(BuildContext context) {

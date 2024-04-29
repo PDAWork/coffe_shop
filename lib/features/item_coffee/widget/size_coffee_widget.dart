@@ -2,9 +2,7 @@ import 'package:coffee_shop/common/app_color.dart';
 import 'package:coffee_shop/common/images.dart';
 import 'package:coffee_shop/features/item_coffee/state/bloc/item_coffee_bloc.dart';
 import 'package:coffee_shop/features/item_coffee/widget/sized_card.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SizeCoffeeWidget extends StatelessWidget {

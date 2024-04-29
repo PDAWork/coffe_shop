@@ -1,7 +1,6 @@
 import 'package:coffee_shop/common/app_color.dart';
 import 'package:coffee_shop/core/state_managment/bloc/basket_coffee_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_svg/svg.dart';
@@ -69,7 +68,7 @@ class _BasketPageState extends State<BasketPage>
                 ],
               ),
               child: Container(
-                margin: EdgeInsets.only(bottom: 10),
+                margin: const EdgeInsets.only(bottom: 10),
                 padding: const EdgeInsets.only(
                     left: 15, right: 15, bottom: 10, top: 10),
                 decoration: BoxDecoration(
