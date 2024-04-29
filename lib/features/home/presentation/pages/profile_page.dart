@@ -10,7 +10,7 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        _LayaltyCard(),
+        const _LayaltyCard(),
         const SizedBox(
           height: 15,
         ),
@@ -114,10 +114,10 @@ class _LayaltyCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.only(
-        left: 27.5,
-        right: 27.5,
-        top: 16.75,
-        bottom: 20,
+        left: 15,
+        right: 15,
+        top: 15,
+        bottom: 15,
       ),
       decoration: BoxDecoration(
         color: primary,
@@ -150,12 +150,11 @@ class _LayaltyCard extends StatelessWidget {
               color: loyaltyCardColor,
               borderRadius: BorderRadius.circular(12),
             ),
-            padding: const EdgeInsets.all(15),
+            padding: const EdgeInsets.all(10),
             child: Row(
               children: List.generate(
                 8,
-                (index) => Padding(
-                  padding: EdgeInsets.only(right: index != 7 ? 15 : 0),
+                (index) => Expanded(
                   child: index < 4 ? coffeCupSelect : coffeCupUnSelect,
                 ),
               ),
