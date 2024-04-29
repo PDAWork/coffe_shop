@@ -44,5 +44,11 @@ class BasketCoffeeBloc extends Bloc<BasketCoffeeEvent, BasketCoffeeState> {
         emit(state.copyWith(bascketItem: bascketItem));
       },
     );
+    on<BasketCoffeeDeleteEvent>((event, emit) {
+      final List<ItemCoffeeEntity> basketItem = [];
+      basketItem.addAll(state.bascketItem);
+      basketItem.remove(event.item);
+      emit(state.copyWith(bascketItem: basketItem));
+    });
   }
 }

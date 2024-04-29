@@ -1,9 +1,9 @@
 part of 'item_coffee_bloc.dart';
 
 enum SizeCoffee {
-  small(title: "S", procent: 0),
-  medium(title: "M", procent: 20),
-  large(title: "L", procent: 30);
+  small(title: "350 ml", procent: 0),
+  medium(title: "450 ml", procent: 20),
+  large(title: "500 ml", procent: 30);
 
   const SizeCoffee({required this.title, required this.procent});
   final String title;
@@ -11,10 +11,14 @@ enum SizeCoffee {
 }
 
 enum SugarCoffee {
-  notSugar,
-  oneSugar,
-  twoSugar,
-  threeSugar,
+  notSugar(title: 'Без сахара'),
+  oneSugar(title: "1 сахар"),
+  twoSugar(title: "2 сахара"),
+  threeSugar(title: '3 сахара');
+
+  const SugarCoffee({required this.title});
+
+  final String title;
 }
 
 @immutable

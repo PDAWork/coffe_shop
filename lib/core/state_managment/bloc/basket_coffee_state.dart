@@ -17,4 +17,9 @@ final class BasketCoffeeState {
   BasketCoffeeState copyWith({List<ItemCoffeeEntity>? bascketItem}) {
     return BasketCoffeeState(bascketItem: bascketItem ?? this.bascketItem);
   }
+
+  @override
+  String toString() {
+    return "BasketCoffeeState(bascketItem: $bascketItem, countItem: $countItem, totalPrice: $totalPrice)";
+  }
 }

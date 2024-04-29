@@ -8,3 +8,9 @@ final class BasketCoffeeAddEvent extends BasketCoffeeEvent {
 
   BasketCoffeeAddEvent({required this.item});
 }
+
+final class BasketCoffeeDeleteEvent extends BasketCoffeeEvent {
+  final ItemCoffeeEntity item;
+
+  BasketCoffeeDeleteEvent({required this.item});
+}

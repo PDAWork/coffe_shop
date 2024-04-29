@@ -21,14 +21,41 @@ class AppBottomNavigationBar extends StatelessWidget {
                 children: [
                   if (state.bascketItem.isNotEmpty)
                     Container(
-                      height: 50,
-                      decoration: BoxDecoration(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 7,
+                        horizontal: 10,
+                      ),
+                      height: kBottomNavigationBarHeight,
+                      decoration: const BoxDecoration(
                         color: filedFieldSearch,
                         border: Border(
                           bottom: BorderSide(
                             color: unSelectIcon,
                           ),
                         ),
+                      ),
+                      child: Row(
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "${state.bascketItem.fold(0, (previousValue, element) => previousValue + element.count)} кол-во",
+                                style: Theme.of(context).textTheme.titleSmall,
+                              ),
+                              Text(
+                                "${state.totalPrice} ₽",
+                                style: Theme.of(context).textTheme.labelMedium,
+                              ),
+                            ],
+                          ),
+                          Spacer(),
+                          ElevatedButton(
+                            onPressed: () {},
+                            child: const Text('Оплатить'),
+                          )
+                        ],
                       ),
                     ),
                   BottomNavigationBar(

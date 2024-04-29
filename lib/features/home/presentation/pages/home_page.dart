@@ -62,13 +62,7 @@ class HomePage extends StatelessWidget {
             },
           ),
         ),
-        BlocBuilder<BasketCoffeeBloc, BasketCoffeeState>(
-          builder: (context, state) {
-            return SizedBox(
-                height: kBottomNavigationBarHeight +
-                    (state.bascketItem.isNotEmpty ? 50 : 0));
-          },
-        ),
+      
       ],
     );
   }

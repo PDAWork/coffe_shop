@@ -1,4 +1,5 @@
 import 'package:coffee_shop/common/app_color.dart';
+import 'package:coffee_shop/core/state_managment/bloc/basket_coffee_bloc.dart';
 import 'package:coffee_shop/core/state_managment/cubit/app_bottom_navigation_bar_cubit.dart';
 import 'package:coffee_shop/core/widget/app_bottom_navigation_bar.dart';
 import 'package:coffee_shop/features/home/presentation/pages/basket_page.dart';
@@ -33,14 +34,25 @@ class HomeScreen extends StatelessWidget {
           padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
           child: Stack(
             children: [
-              IndexedStack(
-                index: selectTab.index,
-                children: [
-                  const HomePage(),
-                  Container(),
-                  BasketPage(),
-                  const ProfilePage(),
-                ],
+              BlocBuilder<BasketCoffeeBloc, BasketCoffeeState>(
+                builder: (context, state) {
+                  return Padding(
+                    padding: EdgeInsets.only(
+                        bottom: kBottomNavigationBarHeight +
+                            (state.bascketItem.isNotEmpty
+                                ? kBottomNavigationBarHeight
+                                : 0)),
+                    child: IndexedStack(
+                      index: selectTab.index,
+                      children: [
+                        const HomePage(),
+                        Container(),
+                        BasketPage(),
+                        const ProfilePage(),
+                      ],
+                    ),
+                  );
+                },
               ),
               const Align(
                 alignment: Alignment.bottomCenter,
