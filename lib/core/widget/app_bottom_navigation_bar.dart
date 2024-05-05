@@ -79,12 +79,12 @@ class AppBottomNavigationBar extends StatelessWidget {
                         ),
                         label: 'Главная',
                       ),
-                      BottomNavigationBarItem(
-                        icon: Icon(
-                          Icons.location_on_outlined,
-                        ),
-                        label: 'Карта',
-                      ),
+                      // BottomNavigationBarItem(
+                      //   icon: Icon(
+                      //     Icons.location_on_outlined,
+                      //   ),
+                      //   label: 'Карта',
+                      // ),
                       BottomNavigationBarItem(
                         icon: Icon(
                           Icons.shopping_cart_outlined,

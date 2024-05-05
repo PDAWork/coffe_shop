@@ -44,11 +44,10 @@ class HomeScreen extends StatelessWidget {
                                 : 0)),
                     child: IndexedStack(
                       index: selectTab.index,
-                      children: [
-                        const HomePage(),
-                        Container(),
-                        const BasketPage(),
-                        const ProfilePage(),
+                      children: const [
+                        HomePage(),
+                        BasketPage(),
+                        ProfilePage(),
                       ],
                     ),
                   );

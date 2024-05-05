@@ -32,6 +32,7 @@ class HomePage extends StatelessWidget {
                 ),
               ),
             ),
+            const SizedBox(width: 10),
             SizedBox(
               height: 54,
               child: FloatingActionButton(
@@ -60,7 +61,6 @@ class HomePage extends StatelessWidget {
             },
           ),
         ),
-      
       ],
     );
   }

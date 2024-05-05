@@ -7,6 +7,7 @@ import 'package:coffee_shop/features/item_coffee/state/bloc/item_coffee_bloc.dar
 import 'package:coffee_shop/features/item_coffee/widget/counter_coffee_widget.dart';
 import 'package:coffee_shop/features/item_coffee/widget/size_coffee_widget.dart';
 import 'package:coffee_shop/features/item_coffee/widget/sugar_coffee_widget.dart';
+import 'package:coffee_shop/router/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -122,9 +123,11 @@ class ItemCoffeeScreen extends StatelessWidget {
                             size: context.read<ItemCoffeeBloc>().state.size,
                             sugar: context.read<ItemCoffeeBloc>().state.sugar,
                           );
+                          if (item.count == 0) return;
                           context
                               .read<BasketCoffeeBloc>()
                               .add(BasketCoffeeAddEvent(item: item));
+                          AppRouter.router.pop();
                         },
                         child: const Text('AddToCart'),
                       )
