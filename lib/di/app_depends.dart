@@ -1,3 +1,9 @@
+import 'package:coffee_shop/features/auth/data/repository/auth_repository_impl.dart';
+import 'package:coffee_shop/features/auth/domain/repository/auth_repository.dart';
+import 'package:coffee_shop/firebase_options.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+
 typedef OnError = void Function(
   String name,
   Object error,
@@ -12,15 +18,38 @@ typedef OnProgress = void Function(
 typedef AddDependsAsync<T> = Future<T> Function();
 typedef AddDepends<T> = T Function();
 
-enum _AppDeps { test }
+enum _AppDeps { firebase, authRepository }
 
 final class AppDepends {
   AppDepends();
 
+  late final AuthRepository authRepository;
+
   Future<void> init({
     required OnError onError,
     required OnProgress onProgress,
-  }) async {}
+  }) async {
+    await _addDep(
+      onProgress,
+      onError,
+      _AppDeps.firebase,
+      isAsync: true,
+      addDependsAsync: () async => await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform,
+      ),
+    );
+
+    authRepository = await _addDep<AuthRepostioryImpl>(
+      onProgress,
+      onError,
+      _AppDeps.authRepository,
+      addDepends: () {
+        return AuthRepostioryImpl(
+          firebaseAuth: FirebaseAuth.instance,
+        );
+      },
+    );
+  }
 
   Future<T> _addDep<T>(
     OnProgress onProgress,

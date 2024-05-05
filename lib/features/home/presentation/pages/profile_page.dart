@@ -1,5 +1,8 @@
 import 'package:coffee_shop/common/app_color.dart';
 import 'package:coffee_shop/common/images.dart';
+import 'package:coffee_shop/router/app_router.dart';
+import 'package:coffee_shop/router/router_utils.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -7,6 +10,7 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final user = FirebaseAuth.instance.currentUser;
     return Column(
       children: [
         const _LayaltyCard(),
@@ -17,7 +21,7 @@ class ProfilePage extends StatelessWidget {
           leanding: profile,
           trailing: edit,
           subtitle: 'Имя',
-          title: 'Даниил',
+          title: user?.displayName ?? 'Аноним',
         ),
         const SizedBox(
           height: 15,
@@ -26,7 +30,7 @@ class ProfilePage extends StatelessWidget {
           leanding: profile,
           trailing: edit,
           subtitle: 'Почта',
-          title: 'pahomovdaniil02@yandex.ru',
+          title: user?.email ?? 'Аноним',
         ),
         const SizedBox(
           height: 15,
@@ -35,6 +39,20 @@ class ProfilePage extends StatelessWidget {
           leanding: order,
           title: 'Заказы',
         ),
+        const SizedBox(
+          height: 15,
+        ),
+        _SettingsCard(
+          title: 'Выход',
+          onTap: () async {
+            await FirebaseAuth.instance.signOut();
+            AppRouter.router.go(Pages.welcomeScreen.screenPath);
+          },
+          leanding: const Icon(
+            Icons.exit_to_app,
+            color: unSelectIcon,
+          ),
+        )
       ],
     );
   }
@@ -46,24 +64,19 @@ class _SettingsCard extends StatelessWidget {
     this.trailing,
     required this.title,
     this.subtitle,
+    this.onTap,
   });
 
   final Widget? leanding;
   final Widget? trailing;
   final String title;
   final String? subtitle;
+  final Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 20,
-      ),
-      decoration: BoxDecoration(
-        color: loyaltyCardColor,
-        border: Border.all(color: primary),
-        borderRadius: BorderRadius.circular(15),
-      ),
+    return OutlinedButton(
+      onPressed: onTap,
       child: Row(
         children: [
           Padding(

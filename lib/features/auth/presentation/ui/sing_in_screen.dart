@@ -1,11 +1,17 @@
 import 'package:coffee_shop/common/app_color.dart';
 import 'package:coffee_shop/common/images.dart';
+import 'package:coffee_shop/features/auth/presentation/cubit/auth_cubit.dart';
+import 'package:coffee_shop/features/auth/presentation/widget/text_field_auth.dart';
 import 'package:coffee_shop/router/app_router.dart';
 import 'package:coffee_shop/router/router_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SingInScreen extends StatelessWidget {
-  const SingInScreen({super.key});
+  SingInScreen({super.key});
+
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -23,82 +29,63 @@ class SingInScreen extends StatelessWidget {
             ),
             const Spacer(),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 76),
+              padding: const EdgeInsets.symmetric(horizontal: 15),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  TextField(
-                    decoration: InputDecoration(
-                      hintText: 'Email',
-                      prefixIcon: const Icon(
-                        Icons.email,
-                        color: primary,
-                      ),
-                      filled: true,
-                      fillColor: filedFieldColor,
-                      contentPadding: const EdgeInsets.all(0),
-                      constraints: const BoxConstraints(maxHeight: 46),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide.none,
-                      ),
-                      focusedErrorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(
-                          color: Colors.transparent,
-                        ),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(
-                          color: primary,
-                        ),
-                      ),
-                    ),
+                  TextFieldAuth(
+                    controller: _emailController,
+                    icon: Icons.email,
+                    hintText: 'Почта',
                   ),
                   const SizedBox(height: 25),
-                  TextField(
-                    decoration: InputDecoration(
-                      hintText: 'Password',
-                      prefixIcon: const Icon(
-                        Icons.key,
-                        color: primary,
-                      ),
-                      filled: true,
-                      fillColor: filedFieldColor,
-                      contentPadding: const EdgeInsets.all(0),
-                      constraints: const BoxConstraints(maxHeight: 46),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide.none,
-                      ),
-                      focusedErrorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(
-                          color: Colors.transparent,
-                        ),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(
-                          color: primary,
-                        ),
-                      ),
-                    ),
+                  TextFieldAuth(
+                    controller: _passwordController,
+                    icon: Icons.key,
+                    hintText: 'Пароль',
+                    obscureText: true,
+                    suffixIcon: true,
                   ),
                   const SizedBox(height: 20),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: SizedBox(
-                          child: ElevatedButton(
+                  BlocConsumer<AuthCubit, AuthState>(
+                    listener: (context, state) {
+                      if (state is AuthError) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            padding: const EdgeInsets.only(
+                              bottom: 0,
+                              left: 15,
+                              right: 15,
+                              top: 15,
+                            ),
+                            backgroundColor: primary,
+                            content: Text(state.message),
+                          ),
+                        );
+                      }
+                      if (state is AuthSuccess) {
+                        AppRouter.router.go(Pages.homeScreen.screenPath);
+                      }
+                    },
+                    builder: (context, state) {
+                      return switch (state) {
+                        AuthInitial _ ||
+                        AuthSuccess _ ||
+                        AuthError _ =>
+                          ElevatedButton(
                             onPressed: () {
-                              AppRouter.router.go(Pages.homeScreen.screenPath);
+                              context.read<AuthCubit>().singIn(
+                                    email: _emailController.text,
+                                    password: _passwordController.text,
+                                  );
                             },
                             child: const Text("Войти"),
                           ),
-                        ),
-                      ),
-                    ],
+                        AuthLoading _ => const Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                      };
+                    },
                   ),
                 ],
               ),
