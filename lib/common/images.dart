@@ -21,30 +21,9 @@ abstract class AppImagePath {
   static const String small = 'images/small.svg';
   static const String medium = 'images/medium.svg';
   static const String large = 'images/large.svg';
+
+  static const notSugar = 'images/not_sugar.svg';
+  static const oneSugar = 'images/one_sugar.svg';
+  static const twoSugar = 'images/two_sugar.svg';
+  static const threeSugar = 'images/three_sugar.svg';
 }
-
-Widget small({Color color = Colors.white}) => SvgPicture.asset(
-      'images/small.svg',
-      colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
-    );
-
-Widget notSugar({Color color = Colors.white}) => SvgPicture.asset(
-      'images/not_sugar.svg',
-      width: 35,
-      colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
-    );
-Widget oneSugar({Color color = Colors.white}) => SvgPicture.asset(
-      'images/one_sugar.svg',
-      width: 30,
-      colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
-    );
-Widget twoSugar({Color color = Colors.white}) => SvgPicture.asset(
-      'images/two_sugar.svg',
-      width: 40,
-      colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
-    );
-Widget threeSugar({Color color = Colors.white}) => SvgPicture.asset(
-      'images/three_sugar.svg',
-      width: 40,
-      colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
-    );

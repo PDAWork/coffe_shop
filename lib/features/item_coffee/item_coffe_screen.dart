@@ -1,6 +1,5 @@
 import 'package:coffee_shop/common/app_color.dart';
 import 'package:coffee_shop/common/coffee.dart';
-import 'package:coffee_shop/common/images.dart';
 import 'package:coffee_shop/core/entity/item_coffee_entity.dart';
 import 'package:coffee_shop/core/state_managment/bloc/basket_coffee_bloc.dart';
 import 'package:coffee_shop/features/item_coffee/state/bloc/item_coffee_bloc.dart';
@@ -10,12 +9,14 @@ import 'package:coffee_shop/features/item_coffee/widget/sugar_coffee_widget.dart
 import 'package:coffee_shop/router/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class ItemCoffeeScreen extends StatelessWidget {
   const ItemCoffeeScreen(
     this._coffee, {
     super.key,
   });
+
   final Coffee _coffee;
 
   @override
@@ -39,7 +40,7 @@ class ItemCoffeeScreen extends StatelessWidget {
                     maxHeight: 200,
                     maxWidth: 200,
                   ),
-                  child: latte,
+                  child: SvgPicture.asset(_coffee.iconPath),
                 ),
               ),
               Expanded(
@@ -56,12 +57,14 @@ class ItemCoffeeScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            'Macchiato',
-                            style: Theme.of(context).textTheme.headlineSmall!,
+                          Flexible(
+                            child: Text(
+                              _coffee.name,
+                              style: Theme.of(context).textTheme.headlineSmall!,
+                            ),
                           ),
-                          const Spacer(),
                           Text(
                             "${context.read<ItemCoffeeBloc>().state.price} ₽",
                             style: Theme.of(context)
@@ -71,8 +74,6 @@ class ItemCoffeeScreen extends StatelessWidget {
                                     fontWeight: FontWeight.bold,
                                     color: primary),
                           ),
-                          const SizedBox(width: 10),
-                          const CounterCoffeeWidget(),
                         ],
                       ),
                       const SizedBox(height: 15),
@@ -98,19 +99,25 @@ class ItemCoffeeScreen extends StatelessWidget {
                         ],
                       ),
                       const Spacer(),
-                      BlocBuilder<ItemCoffeeBloc, ItemCoffeeState>(
-                        builder: (context, state) {
-                          return Text(
-                            'Итог:  ${state.totalPrice} ₽',
-                            style: Theme.of(context)
-                                .textTheme
-                                .headlineSmall!
-                                .copyWith(
-                                  fontWeight: FontWeight.bold,
-                                  color: primary,
-                                ),
-                          );
-                        },
+                      Row(
+                        children: [
+                          BlocBuilder<ItemCoffeeBloc, ItemCoffeeState>(
+                            builder: (context, state) {
+                              return Text(
+                                'Итог:  ${state.totalPrice} ₽',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headlineSmall!
+                                    .copyWith(
+                                      fontWeight: FontWeight.bold,
+                                      color: primary,
+                                    ),
+                              );
+                            },
+                          ),
+                          const Spacer(),
+                          const CounterCoffeeWidget(),
+                        ],
                       ),
                       const SizedBox(height: 10),
                       ElevatedButton(
