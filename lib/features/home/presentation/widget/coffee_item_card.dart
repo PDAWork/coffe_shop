@@ -1,5 +1,6 @@
 import 'package:coffee_shop/common/app_color.dart';
 import 'package:coffee_shop/common/coffee.dart';
+import 'package:coffee_shop/core/entity/item_coffee_entity.dart';
 import 'package:coffee_shop/core/state_managment/bloc/basket_coffee_bloc.dart';
 import 'package:coffee_shop/router/app_router.dart';
 import 'package:coffee_shop/router/router_utils.dart';
@@ -8,12 +9,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
 class CoffeeItemCard extends StatelessWidget {
-  const CoffeeItemCard(
-    this._coffee, {
+  const CoffeeItemCard({
     super.key,
-  });
+    required ItemCoffeeEntity itemCoffee,
+  }) : _itemCoffee = itemCoffee;
 
-  final Coffee _coffee;
+  final ItemCoffeeEntity _itemCoffee;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +24,8 @@ class CoffeeItemCard extends StatelessWidget {
           Pages.itemCoffee.screenName,
           extra: {
             "bloc": context.read<BasketCoffeeBloc>(),
-            "coffee": _coffee,
+            "itemCoffee": _itemCoffee,
+            "typeAction": true,
           },
         );
       },
@@ -36,15 +38,15 @@ class CoffeeItemCard extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            SvgPicture.asset(_coffee.iconPath),
+            SvgPicture.asset(_itemCoffee.coffee.iconPath),
             Text(
-              _coffee.name,
+              _itemCoffee.coffee.name,
               textAlign: TextAlign.center,
               overflow: TextOverflow.visible,
               style: Theme.of(context).textTheme.titleLarge,
             ),
             Text(
-              "${_coffee.price} ₽",
+              "${_itemCoffee.coffee.price} ₽",
               style: Theme.of(context)
                   .textTheme
                   .titleLarge!

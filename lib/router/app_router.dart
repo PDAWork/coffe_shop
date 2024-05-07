@@ -1,4 +1,5 @@
 import 'package:coffee_shop/common/coffee.dart';
+import 'package:coffee_shop/core/entity/item_coffee_entity.dart';
 import 'package:coffee_shop/core/state_managment/bloc/basket_coffee_bloc.dart';
 import 'package:coffee_shop/core/state_managment/cubit/app_bottom_navigation_bar_cubit.dart';
 import 'package:coffee_shop/core/talker.dart';
@@ -91,19 +92,23 @@ final class AppRouter {
             name: Pages.itemCoffee.screenName,
             builder: (context, state) {
               final extra = state.extra as Map<String, dynamic>;
-              final itemCoffeeBloc = extra['bloc'] as BasketCoffeeBloc;
-              final coffee = extra['coffee'] as Coffee;
+              final backetCeffeeBloc = extra['bloc'] as BasketCoffeeBloc;
+              final itemCoffee = extra['itemCoffee'] as ItemCoffeeEntity;
+              final typeAction = extra['typeAction'] as bool;
               return MultiBlocProvider(
                 providers: [
                   BlocProvider(
-                    create: (context) => ItemCoffeeBloc(coffee.price),
+                    create: (context) => ItemCoffeeBloc(
+                      itemCoffee,
+                    ),
                   ),
                   BlocProvider.value(
-                    value: itemCoffeeBloc,
+                    value: backetCeffeeBloc,
                   ),
                 ],
                 child: ItemCoffeeScreen(
-                  coffee,
+                  itemCoffee,
+                  typeAction: typeAction,
                 ),
               );
             },

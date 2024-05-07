@@ -1,5 +1,6 @@
 import 'package:coffee_shop/common/app_color.dart';
 import 'package:coffee_shop/common/coffee.dart';
+import 'package:coffee_shop/core/entity/item_coffee_entity.dart';
 import 'package:coffee_shop/features/home/presentation/widget/coffee_item_card.dart';
 import 'package:flutter/material.dart';
 
@@ -27,8 +28,9 @@ class HomePage extends StatelessWidget {
                   fillColor: filedFieldSearch,
                   constraints: const BoxConstraints(maxHeight: 54),
                   border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(15),
-                      borderSide: BorderSide.none),
+                    borderRadius: BorderRadius.circular(15),
+                    borderSide: BorderSide.none,
+                  ),
                 ),
               ),
             ),
@@ -56,8 +58,11 @@ class HomePage extends StatelessWidget {
             itemCount: Coffee.values.length,
             itemBuilder: (context, index) {
               return Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: CoffeeItemCard(Coffee.values[index]));
+                padding: const EdgeInsets.all(10),
+                child: CoffeeItemCard(
+                  itemCoffee: ItemCoffeeEntity(coffee: Coffee.values[index]),
+                ),
+              );
             },
           ),
         ),

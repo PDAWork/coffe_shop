@@ -19,3 +19,4 @@ final class ItemCoffeeSugarEvent extends ItemCoffeeEvent {
 
   ItemCoffeeSugarEvent({required this.sugar});
 }
+

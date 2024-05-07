@@ -14,3 +14,13 @@ final class BasketCoffeeDeleteEvent extends BasketCoffeeEvent {
 
   BasketCoffeeDeleteEvent({required this.item});
 }
+
+final class BasketCoffeeUpdateEvent extends BasketCoffeeEvent {
+  final ItemCoffeeEntity itemOld;
+  final ItemCoffeeEntity itemNew;
+
+  BasketCoffeeUpdateEvent({
+    required this.itemNew,
+    required this.itemOld,
+  });
+}

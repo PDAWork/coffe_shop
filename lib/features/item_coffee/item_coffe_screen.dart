@@ -1,5 +1,4 @@
 import 'package:coffee_shop/common/app_color.dart';
-import 'package:coffee_shop/common/coffee.dart';
 import 'package:coffee_shop/core/entity/item_coffee_entity.dart';
 import 'package:coffee_shop/core/state_managment/bloc/basket_coffee_bloc.dart';
 import 'package:coffee_shop/features/item_coffee/state/bloc/item_coffee_bloc.dart';
@@ -15,16 +14,18 @@ class ItemCoffeeScreen extends StatelessWidget {
   const ItemCoffeeScreen(
     this._coffee, {
     super.key,
+    required this.typeAction,
   });
 
-  final Coffee _coffee;
+  final ItemCoffeeEntity _coffee;
+  final bool typeAction;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text(_coffee.name),
+        title: Text(_coffee.coffee.name),
       ),
       body: Stack(
         children: [
@@ -40,7 +41,7 @@ class ItemCoffeeScreen extends StatelessWidget {
                     maxHeight: 200,
                     maxWidth: 200,
                   ),
-                  child: SvgPicture.asset(_coffee.iconPath),
+                  child: SvgPicture.asset(_coffee.coffee.iconPath),
                 ),
               ),
               Expanded(
@@ -61,7 +62,7 @@ class ItemCoffeeScreen extends StatelessWidget {
                         children: [
                           Flexible(
                             child: Text(
-                              _coffee.name,
+                              _coffee.coffee.name,
                               style: Theme.of(context).textTheme.headlineSmall!,
                             ),
                           ),
@@ -122,21 +123,32 @@ class ItemCoffeeScreen extends StatelessWidget {
                       const SizedBox(height: 10),
                       ElevatedButton(
                         onPressed: () {
-                          final item = ItemCoffeeEntity(
-                            coffee: _coffee,
+                          final itemNew = ItemCoffeeEntity(
+                            coffee: _coffee.coffee,
                             count: context.read<ItemCoffeeBloc>().state.count,
                             totalPrice:
                                 context.read<ItemCoffeeBloc>().state.totalPrice,
                             size: context.read<ItemCoffeeBloc>().state.size,
                             sugar: context.read<ItemCoffeeBloc>().state.sugar,
                           );
-                          if (item.count == 0) return;
-                          context
-                              .read<BasketCoffeeBloc>()
-                              .add(BasketCoffeeAddEvent(item: item));
+                          if (itemNew.count == 0) return;
+                          typeAction
+                              ? context
+                                  .read<BasketCoffeeBloc>()
+                                  .add(BasketCoffeeAddEvent(item: itemNew))
+                              : context
+                                  .read<BasketCoffeeBloc>()
+                                  .add(BasketCoffeeUpdateEvent(
+                                    itemNew: itemNew,
+                                    itemOld: _coffee,
+                                  ));
                           AppRouter.router.pop();
                         },
-                        child: const Text('AddToCart'),
+                        child: Text(
+                          typeAction
+                              ? "Добавить в корзину"
+                              : "Изменить значение",
+                        ),
                       )
                     ],
                   ),

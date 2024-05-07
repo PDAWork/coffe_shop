@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:coffee_shop/core/entity/item_coffee_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
@@ -6,7 +7,15 @@ part 'item_coffee_event.dart';
 part 'item_coffee_state.dart';
 
 class ItemCoffeeBloc extends Bloc<ItemCoffeeEvent, ItemCoffeeState> {
-  ItemCoffeeBloc(int price) : super(ItemCoffeeState(price: price)) {
+  ItemCoffeeBloc(ItemCoffeeEntity item)
+      : super(
+          ItemCoffeeState(
+            price: item.coffee.price,
+            size: item.size,
+            sugar: item.sugar,
+            count: item.count,
+          ),
+        ) {
     on<ItemCoffeeEvent>(
       (event, emit) {},
     );

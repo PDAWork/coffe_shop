@@ -19,7 +19,7 @@ class AppBottomNavigationBar extends StatelessWidget {
               return Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  if (state.bascketItem.isNotEmpty)
+                  if (state.basketItem.isNotEmpty)
                     Container(
                       padding: const EdgeInsets.symmetric(
                         vertical: 7,
@@ -41,7 +41,7 @@ class AppBottomNavigationBar extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                "${state.bascketItem.fold(0, (previousValue, element) => previousValue + element.count)} кол-во",
+                                "${state.basketItem.fold(0, (previousValue, element) => previousValue + element.count)} кол-во",
                                 style: Theme.of(context).textTheme.titleSmall,
                               ),
                               Text(

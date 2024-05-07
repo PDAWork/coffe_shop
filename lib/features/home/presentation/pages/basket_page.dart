@@ -1,5 +1,8 @@
 import 'package:coffee_shop/common/app_color.dart';
+import 'package:coffee_shop/core/entity/item_coffee_entity.dart';
 import 'package:coffee_shop/core/state_managment/bloc/basket_coffee_bloc.dart';
+import 'package:coffee_shop/router/app_router.dart';
+import 'package:coffee_shop/router/router_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -20,7 +23,7 @@ class _BasketPageState extends State<BasketPage>
   Widget build(BuildContext context) {
     return BlocBuilder<BasketCoffeeBloc, BasketCoffeeState>(
       builder: (context, state) {
-        final itemList = state.bascketItem;
+        final itemList = state.basketItem;
         return ListView.builder(
           itemCount: itemList.length,
           itemBuilder: (context, index) {
@@ -28,42 +31,17 @@ class _BasketPageState extends State<BasketPage>
               endActionPane: ActionPane(
                 motion: const ScrollMotion(),
                 children: [
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.only(bottom: 10, left: 5),
-                      child: SizedBox.expand(
-                        child: OutlinedButton(
-                          onPressed: () {},
-                          style: OutlinedButton.styleFrom(
-                            backgroundColor: editButtonBackground,
-                            foregroundColor: editIconColor,
-                          ),
-                          child: const Icon(Icons.edit),
-                        ),
-                      ),
-                    ),
+                  _ActionSlidable(
+                    item: itemList[index],
+                    backgroundColor: editButtonBackground,
+                    foregroundColor: editIconColor,
+                    icon: Icons.edit,
                   ),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.only(bottom: 10, left: 5),
-                      child: SizedBox.expand(
-                        child: OutlinedButton(
-                          onPressed: () {
-                            context.read<BasketCoffeeBloc>().add(
-                                  BasketCoffeeDeleteEvent(
-                                    item: itemList[index],
-                                  ),
-                                );
-                            controller.close();
-                          },
-                          style: OutlinedButton.styleFrom(
-                            backgroundColor: deleteButtonBackground,
-                            foregroundColor: deleteIconColor,
-                          ),
-                          child: const Icon(Icons.delete),
-                        ),
-                      ),
-                    ),
+                  _ActionSlidable(
+                    item: itemList[index],
+                    backgroundColor: deleteButtonBackground,
+                    foregroundColor: deleteIconColor,
+                    icon: Icons.delete,
                   ),
                 ],
               ),
@@ -109,6 +87,49 @@ class _BasketPageState extends State<BasketPage>
           },
         );
       },
+    );
+  }
+}
+
+class _ActionSlidable extends StatelessWidget {
+  const _ActionSlidable({
+    super.key,
+    required this.item,
+    required this.icon,
+    required this.backgroundColor,
+    required this.foregroundColor,
+  });
+
+  final ItemCoffeeEntity item;
+  final IconData icon;
+  final Color backgroundColor;
+  final Color foregroundColor;
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Padding(
+        padding: const EdgeInsets.only(bottom: 10, left: 5),
+        child: SizedBox.expand(
+          child: OutlinedButton(
+            onPressed: () {
+              Slidable.of(context)!.close();
+              AppRouter.router.goNamed(
+                Pages.itemCoffee.screenName,
+                extra: {
+                  "bloc": context.read<BasketCoffeeBloc>(),
+                  "itemCoffee": item,
+                  "typeAction": false
+                },
+              );
+            },
+            style: OutlinedButton.styleFrom(
+              backgroundColor: backgroundColor,
+              foregroundColor: foregroundColor,
+            ),
+            child: Icon(icon),
+          ),
+        ),
+      ),
     );
   }
 }

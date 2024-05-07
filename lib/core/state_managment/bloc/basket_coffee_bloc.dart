@@ -8,14 +8,14 @@ part 'basket_coffee_event.dart';
 part 'basket_coffee_state.dart';
 
 class BasketCoffeeBloc extends Bloc<BasketCoffeeEvent, BasketCoffeeState> {
-  BasketCoffeeBloc() : super(const BasketCoffeeState(bascketItem: [])) {
+  BasketCoffeeBloc() : super(const BasketCoffeeState(basketItem: [])) {
     on<BasketCoffeeEvent>((event, emit) {});
     on<BasketCoffeeAddEvent>(
       (event, emit) {
-        final List<ItemCoffeeEntity> bascketItem = [];
-        bascketItem.addAll(state.bascketItem);
+        final List<ItemCoffeeEntity> basketItem = [];
+        basketItem.addAll(state.basketItem);
 
-        final queryCoffeeIndex = bascketItem.indexWhere(
+        final queryCoffeeIndex = basketItem.indexWhere(
           (element) =>
               element.coffee == event.item.coffee &&
               element.size == event.item.size &&
@@ -23,10 +23,10 @@ class BasketCoffeeBloc extends Bloc<BasketCoffeeEvent, BasketCoffeeState> {
         );
 
         if (queryCoffeeIndex == -1) {
-          bascketItem.add(event.item);
+          basketItem.add(event.item);
         } else {
-          var itemCoffee = bascketItem[queryCoffeeIndex];
-          bascketItem.replaceRange(queryCoffeeIndex, queryCoffeeIndex+1, [
+          var itemCoffee = basketItem[queryCoffeeIndex];
+          basketItem.replaceRange(queryCoffeeIndex, queryCoffeeIndex + 1, [
             itemCoffee.copyWith(
               count: event.item.count + itemCoffee.count,
               totalPrice: event.item.totalPrice + itemCoffee.totalPrice,
@@ -34,13 +34,57 @@ class BasketCoffeeBloc extends Bloc<BasketCoffeeEvent, BasketCoffeeState> {
           ]);
         }
 
-        emit(state.copyWith(bascketItem: bascketItem));
+        emit(state.copyWith(bascketItem: basketItem));
       },
     );
     on<BasketCoffeeDeleteEvent>((event, emit) {
       final List<ItemCoffeeEntity> basketItem = [];
-      basketItem.addAll(state.bascketItem);
+      basketItem.addAll(state.basketItem);
       basketItem.remove(event.item);
+      emit(state.copyWith(bascketItem: basketItem));
+    });
+    on<BasketCoffeeUpdateEvent>((event, emit) {
+      final List<ItemCoffeeEntity> basketItem = [];
+      basketItem.addAll(state.basketItem);
+
+      int queryCoffeeIndexNew = basketItem.indexWhere(
+        (element) =>
+            element.coffee == event.itemNew.coffee &&
+            element.size == event.itemNew.size &&
+            element.sugar == event.itemNew.sugar,
+      );
+
+      if (queryCoffeeIndexNew != -1) {
+        var itemCoffee = basketItem[queryCoffeeIndexNew];
+        basketItem.replaceRange(queryCoffeeIndexNew, queryCoffeeIndexNew + 1, [
+          itemCoffee.copyWith(
+            count: event.itemNew.count + itemCoffee.count,
+            totalPrice: event.itemNew.totalPrice + itemCoffee.totalPrice,
+            size: event.itemNew.size,
+            sugar: event.itemNew.sugar,
+          )
+        ]);
+      }
+
+      int queryCoffeeIndexOld = basketItem.indexWhere(
+        (element) =>
+            element.coffee == event.itemOld.coffee &&
+            element.size == event.itemOld.size &&
+            element.sugar == event.itemOld.sugar,
+      );
+
+      var itemCoffee = basketItem[queryCoffeeIndexOld];
+      basketItem.replaceRange(queryCoffeeIndexOld, queryCoffeeIndexOld + 1, [
+        itemCoffee.copyWith(
+          count: event.itemNew.count,
+          totalPrice: event.itemNew.totalPrice,
+          size: event.itemNew.size,
+          sugar: event.itemNew.sugar,
+        )
+      ]);
+      if (queryCoffeeIndexNew != -1) {
+        basketItem.removeAt(queryCoffeeIndexOld);
+      }
       emit(state.copyWith(bascketItem: basketItem));
     });
   }

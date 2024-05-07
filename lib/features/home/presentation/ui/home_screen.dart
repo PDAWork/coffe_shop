@@ -39,7 +39,7 @@ class HomeScreen extends StatelessWidget {
                   return Padding(
                     padding: EdgeInsets.only(
                         bottom: kBottomNavigationBarHeight +
-                            (state.bascketItem.isNotEmpty
+                            (state.basketItem.isNotEmpty
                                 ? kBottomNavigationBarHeight
                                 : 0)),
                     child: IndexedStack(
