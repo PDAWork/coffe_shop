@@ -2,7 +2,6 @@ import 'package:coffee_shop/common/app_color.dart';
 import 'package:coffee_shop/common/images.dart';
 import 'package:coffee_shop/router/app_router.dart';
 import 'package:coffee_shop/router/router_utils.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -10,7 +9,7 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final user = FirebaseAuth.instance.currentUser;
+    final user = null;
     return Column(
       children: [
         const _LayaltyCard(),
@@ -45,7 +44,6 @@ class ProfilePage extends StatelessWidget {
         _SettingsCard(
           title: 'Выход',
           onTap: () async {
-            await FirebaseAuth.instance.signOut();
             AppRouter.router.go(Pages.welcomeScreen.screenPath);
           },
           leanding: const Icon(

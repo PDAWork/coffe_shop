@@ -1,4 +1,3 @@
-import 'package:coffee_shop/common/coffee.dart';
 import 'package:coffee_shop/core/entity/item_coffee_entity.dart';
 import 'package:coffee_shop/core/state_managment/bloc/basket_coffee_bloc.dart';
 import 'package:coffee_shop/core/state_managment/cubit/app_bottom_navigation_bar_cubit.dart';
@@ -12,7 +11,6 @@ import 'package:coffee_shop/features/home/presentation/ui/home_screen.dart';
 import 'package:coffee_shop/features/item_coffee/item_coffe_screen.dart';
 import 'package:coffee_shop/features/item_coffee/state/bloc/item_coffee_bloc.dart';
 import 'package:coffee_shop/router/router_utils.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -32,9 +30,9 @@ final class AppRouter {
         path: Pages.welcomeScreen.screenPath,
         name: Pages.welcomeScreen.screenName,
         redirect: (context, state) {
-          final firebaseAuth = FirebaseAuth.instance;
+          final firebaseAuth = null;
           if (state.fullPath == Pages.welcomeScreen.screenPath) {
-            return firebaseAuth.currentUser == null
+            return firebaseAuth== null
                 ? Pages.welcomeScreen.screenPath
                 : Pages.homeScreen.screenPath;
           }
